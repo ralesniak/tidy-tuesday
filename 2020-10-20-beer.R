@@ -144,36 +144,36 @@ beer_dmv_chart <- ggplot() +
         y = location.lat),
     size = 7,
     hjust = c(0, 1, 0, 0),
-    nudge_x = c(-1, 1.2, 0.5, -1),
+    nudge_x = c(-1, 1.5, 0.5, -1),
     nudge_y = c(-0.5, 0, 0.2, -0.3),
     box.padding = 1.5,
     segment.curvature = -0.2,
     segment.ncp = 3,
     arrow = arrow(length = unit(0.02, "npc"))
   ) +
-  #give a little more room on the right for labels
-  scale_x_continuous(expand = expansion(mult = c(0, .1))) +
   #uses parameters from intro
   scale_color_steps(low = low, high = high) +
   #labels, also uses params
-  labs(title = "The DMV region has a history of award-winning beer",
+  labs(title = "The DMV region has a history of <span style = 'color:#CA8D0C'>award-winning</span> beer",
        subtitle = glue::glue("Count of Great American Beer Festival medals by city in DC, MD, or VA,",
        " n = <b style = 'color:{low_text}'>{min(beer_awards_sf$n)}</b>", 
        " - <b style = 'color:{high}'>{max(beer_awards_sf$n)}</b>"),
        caption = "Source: Great American Beer Festival, 1987 - 2020\nMap: Rachel Lesniak @ralesniak") +
   #theme - mostly space and fonts
   theme_void(base_size = 25) +
-  theme(panel.background = element_rect(fill = "gray95",
-                                        size = 0),
-        plot.background = element_rect(fill = "gray95"),
-        plot.margin = unit(c(10, 12, 10, 12), "points"),
+  theme(plot.background = element_rect(fill = "gray95",
+                                       color = "gray95"),
+        plot.margin = unit(c(10, 15, 10, 15), "points"),        
+        panel.background = element_rect(fill = "gray95",
+                                        color = "gray95"),
         legend.position = "none",
         text = element_text(family = "roboto"),
-        plot.title = element_text(family = "spartan", face = "bold"),
+        plot.title = element_markdown(family = "spartan", face = "bold", color = "#146F8D"),
+        plot.title.position = "plot",
         plot.subtitle = element_markdown(family = "roboto"))
 
 png(filename = "beer_dmv_chart.png",
     width = 1200,
-    height = 670)
+    height = 700)
 beer_dmv_chart
 dev.off()
